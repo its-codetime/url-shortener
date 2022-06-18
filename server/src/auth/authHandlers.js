@@ -26,7 +26,7 @@ async function handleRegister(req, res, next) {
     // validate and add user to db
     const user = await createUserAndValidate(userDetails);
     // create jwt and send it back in response
-    user.token = await createAuthToken(user);
+    user.token = createAuthToken(user);
     // response
     res.json({ user });
   } catch (error) {
@@ -84,7 +84,7 @@ async function handleCheckUnique(req, res, next) {
     // error if user exists
     const user = await getUser({ [field]: value });
     if (user !== null) {
-      res.statusCode(409); // conflict
+      res.status(409); // conflict
       throw new Error(`${field} ${value} already exists`);
     }
     // unique: true if user does not exist
@@ -106,17 +106,17 @@ async function handleAuthorize(req, res, next) {
     // verify token
     // error if verification is failed
     const user = verifyToken(token);
-    const { username, email } = user;
+    const { username, email, id } = user;
     const pathArray = req.originalUrl.split("/");
     const route = pathArray[pathArray.length - 1];
     // respond if authorize route
     if (route === "authorize") {
-      res.json({ username, email, token });
+      res.json({ user: { username, email, id, token } });
       return;
     }
     // if not authorize route, then authorize is used as middleware
     // so attach user to req and call next
-    req.user = { username, email };
+    req.user = { username, email, id };
     next();
   } catch (error) {
     res.status(401); // unauthorized

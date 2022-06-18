@@ -24,10 +24,16 @@ async function checkIfUserExists(username, email) {
 
 async function createUserAndValidate(userDetails) {
   try {
+    userDetails.urlLimit = parseInt(process.env.URL_LIMIT);
     const user = new User(userDetails);
     await user.validate();
     await user.save();
-    return { username: user.username, email: user.email, id: user._id };
+    return {
+      username: user.username,
+      email: user.email,
+      id: user.id,
+      urlLimit: user.urlLimit,
+    };
   } catch (error) {
     error.statusCode = 400;
     throw error;
