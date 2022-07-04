@@ -1,6 +1,6 @@
 const { nanoid } = require("nanoid");
 const Url = require("../db/schema/url.js");
-const User = require("../db/schema/User.js");
+const User = require("../db/schema/user.js");
 
 async function getUserUrls(userId) {
   try {

@@ -27,7 +27,7 @@ app.use(express.json());
 // root
 app.get("/", (req, res) => {
   res.json({
-    message: "Auth&Auth server is online",
+    message: "Url shortener server is online",
   });
 });
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const User = require("./User");
+const User = require("./user");
 
 const PasswordResetSchema = new mongoose.Schema({
   userId: {

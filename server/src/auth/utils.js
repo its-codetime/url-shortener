@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
 const nodemailer = require("nodemailer");
-const User = require("../db/schema/User.js");
+const User = require("../db/schema/user.js");
 const PasswordReset = require("../db/schema/passwordReset.js");
 
 const hoursToMs = 3600 * 1000; // hours to ms
